@@ -87,8 +87,7 @@ def read_Temp(ch):
 
 (temperature,pressure,humidity)= bme280.update_sensor()
 tmp2 = read_Temp(3)
-bme280.set_ambient_temperature(tmp2) 
-print('1st correction: BME280 temp by {:05.2f} deg'.format(tmp2-temperature))
+
 		
 out_name = 'LOG_'+strftime('%Y%m%d%H%M%S',localtime())+'.csv'
 f = open(out_name,'w')
@@ -104,7 +103,7 @@ try:
 		NH3 = read_MOS(2)
 		tmp2 = read_Temp(3)
 		(temperature,pressure,humidity)= bme280.update_sensor()
-		bme280.set_ambient_temperature(tmp2) 
+		
 		
 		Done = False
 		while not Done:

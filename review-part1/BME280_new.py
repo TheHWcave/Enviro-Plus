@@ -6,7 +6,7 @@ import struct
 import time
 
 
-__version__ = '9.9.9' #TheHWcave: Bump from 0.0.1
+__version__ = '9.9.9.9' #TheHWcave: Bump from 0.0.1
 
 
 CHIP_ID = 0x60
@@ -79,19 +79,15 @@ class BME280Calibration():
 		self.dig_h6 = 0
 
 		self.temperature_fine = 0
-		self.temperature_internal = 0.0 # TheHWcave: added  (uncorrected internal temperature)
-		self.temperature_offset   = 0.0 # TheHWcave: added  (offset to correct temperature)
 		
-	def correct_temperature(self, target_temp):
-		self.temperature_offset = target_temp - self.temperature_internal
-		return
+		
+	
 	
 	def compensate_temperature(self, raw_temperature):
 		var1 = (raw_temperature / 16384.0 - self.dig_t1 / 1024.0) * self.dig_t2
 		var2 = raw_temperature / 131072.0 - self.dig_t1 / 8192.0
 		var2 = var2 * var2 * self.dig_t3
-		self.temperature_internal = (var1 + var2) / 5120.0                             # TheHWcave: added 
-		self.temperature_fine = (var1 + var2) + (self.temperature_offset * 5120.0) # TheHWcave: added correction capability 
+		self.temperature_fine = (var1 + var2) 
 		return self.temperature_fine / 5120.0
 
 	def compensate_pressure(self, raw_pressure):
@@ -265,9 +261,7 @@ class BME280_new:
 			self.calibration.dig_h5 = CALIBRATION.get_dig_h5()
 			self.calibration.dig_h6 = CALIBRATION.get_dig_h6()
 
-	def set_ambient_temperature(self,ambient_temperature): #TheHWcave: added
-		self.calibration.correct_temperature(ambient_temperature)
-		return
+	
 		
 	def update_sensor(self):
 		self.setup()
