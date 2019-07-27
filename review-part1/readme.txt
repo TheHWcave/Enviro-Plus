@@ -10,3 +10,6 @@ Weather_Gas_PM.py is that program
 BME280_new.py is the new driver for the BME280
 
 To use this software, you must have the Pimoroni Enviro+ library installed (as explained on their website) and keep both the BME280_new.py and Weather_GAS_PM.py in the same folder.
+
+NOTE:
+According to Bosch Sensortec, the internal BME280 temperature_fine variable should be the chip temperature, therefore correction to ambient temperature is wrong and I removed that function from the BME280_new driver and the example.
